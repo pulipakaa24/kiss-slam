@@ -1,4 +1,1 @@
-*.cpp linguist-language=C++
-*.hpp linguist-language=C++
 *.md linguist-documentation
-*.py linguist-vendored
