@@ -49,7 +49,6 @@ private:
     void Bresenham3DLine(const Bonxai::CoordT &start_coord, const Bonxai::CoordT &end_coord);
     void UpdateVoxelOccupancy(const Bonxai::CoordT &coord, const float value);
 
-    float resolution_ = 0.0f;
     float max_range_ = 0.0f;
     Bonxai::VoxelGrid<float> map_;
     using AccessorType = typename Bonxai::VoxelGrid<float>::Accessor;
