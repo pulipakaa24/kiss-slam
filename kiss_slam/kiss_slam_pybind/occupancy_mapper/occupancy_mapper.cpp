@@ -75,7 +75,7 @@ std::tuple<Vector3iVector, std::vector<float>> OccupancyMapper::GetOccupancyInfo
 void OccupancyMapper::UpdateVoxelOccupancy(const Bonxai::CoordT &coord, const float value) {
     // tg exploit Vdb caching
     accessor_.setCellOn(coord, 0.0);
-    float* logodds = accessor_.value(coord);
+    float *logodds = accessor_.value(coord);
     *logodds += value;
 }
 
