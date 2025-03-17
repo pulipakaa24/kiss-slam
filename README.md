@@ -1,12 +1,27 @@
-# KISS-SLAM
+<div align="center">
+    <h1>KISS-SLAM</h1>
+    <a href="https://github.com/PRBonn/kiss-slam/releases"><img src="https://img.shields.io/github/v/release/PRBonn/kiss-slam?label=version" /></a>
+    <a href="https://github.com/PRBonn/kiss-slam/blob/main/LICENSE"><img src="https://img.shields.io/github/license/PRBonn/kiss-slam" /></a>
+    <a href="https://github.com/PRBonn/kiss-slam/blob/main/"><img src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black" /></a>
+    <a href="https://github.com/PRBonn/kiss-slam/blob/main/"><img src="https://img.shields.io/badge/mac%20os-000000?&logo=apple&logoColor=white" /></a>
+    <br />
+    <br />
+    <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+    <a href="https://github.com/PRBonn/kiss-slam/blob/main/README.md#Install">Install</a>
+    <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+    <a href="https://www.ipb.uni-bonn.de/wp-content/papercite-data/pdf/kiss2025iros.pdf">Paper</a>
+    <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+    <a href=https://github.com/PRBonn/kiss-slam/issues>Contact Us</a>
+  <br />
+  <br />
 
-[Install](#install) •
-[Paper](https://www.ipb.uni-bonn.de/wp-content/papercite-data/pdf/kiss2025iros.pdf) •
-[Contact Us](#contact-us)
+[KISS-SLAM](https://www.ipb.uni-bonn.de/wp-content/papercite-data/pdf/kiss2025iros.pdf) is a simple, robust, and accurate 3D LiDAR SLAM system that **just works**.
+</div>
 
-KISS-SLAM is a simple, robust, and accurate 3D LiDAR SLAM system that **just works**.
+<hr />
 
 ## Install
+
 ```
 pip install kiss-slam
 
@@ -51,7 +66,7 @@ WAIT FOR IT
 
 ## Contributing
 
-We envision KISS-SLAM as a comunity-driven project, we love to see how the project is growing thanks to the contributions from the comunity. We would love to see your face in the list below, just open a Pull Request!
+We envision KISS-SLAM as a community-driven project. We love to see how the project is growing, thanks to the contributions from the community. We would love to see your face in the list below; open a Pull Request!
 
 <a href="https://github.com/PRBonn/kiss-slam/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=PRBonn/kiss-slam" />
@@ -60,4 +75,3 @@ We envision KISS-SLAM as a comunity-driven project, we love to see how the proje
 ## Contact Us
 For questions or feedback:
 - GitHub Issues: https://github.com/PRBonn/kiss-slam/issues
-```
