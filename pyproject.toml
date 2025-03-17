@@ -75,12 +75,11 @@ max-line-length = "100"
 [tool.cibuildwheel]
 archs = ["auto64"]
 skip = ["*-musllinux*",  "pp*", "cp36-*"]
-# For GCC >10.0 Support
-# https://github.com/pypa/cibuildwheel/discussions/984
-manylinux-aarch64-image = "manylinux_2_28"
-manylinux-s390x-image = "manylinux_2_28"
-manylinux-x86_64-image = "manylinux_2_28"
-manylinux-ppc64le-image = "manylinux_2_28"
+
+[tool.cibuildwheel.config-settings]
+"cmake.define.USE_SYSTEM_EIGEN3" = "OFF"
+"cmake.define.USE_SYSTEM_G2O" = "OFF"
+"cmake.define.USE_SYSTEM_TSL-ROBIN-MAP" = "OFF"
 
 [tool.cibuildwheel.macos]
 environment = "MACOSX_DEPLOYMENT_TARGET=11.0"

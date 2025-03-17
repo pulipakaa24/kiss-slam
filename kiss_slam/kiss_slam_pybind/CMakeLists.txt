@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.16...3.26)
 project(kiss_slam VERSION 0.0.1 LANGUAGES CXX)
 
 option(USE_SYSTEM_EIGEN3 "Use system pre-installed Eigen" ON)
-option(USE_SYSTEM_SUITESPARSE "Use a pre-installed version of SuiteSparse" ON)
 option(USE_SYSTEM_TSL-ROBIN-MAP "Use system pre-installed tsl_robin" ON)
 option(USE_SYSTEM_G2O "Use a pre-installed version of g2o" ON)
 
