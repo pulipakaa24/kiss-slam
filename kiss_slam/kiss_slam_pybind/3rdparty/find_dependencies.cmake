@@ -38,7 +38,7 @@ endfunction()
 
 find_external_dependency("Eigen3" "Eigen3::Eigen" "${CMAKE_CURRENT_LIST_DIR}/eigen/eigen.cmake")
 find_external_dependency("tsl-robin-map" "tsl::robin_map" "${CMAKE_CURRENT_LIST_DIR}/tsl_robin/tsl_robin.cmake")
+include(${CMAKE_CURRENT_LIST_DIR}/suitesparse/suitesparse.cmake)
 find_external_dependency("g2o" "g2o::core" "${CMAKE_CURRENT_LIST_DIR}/g2o/g2o.cmake")
 
-include(${CMAKE_CURRENT_LIST_DIR}/suitesparse/suitesparse.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/bonxai/bonxai.cmake)
