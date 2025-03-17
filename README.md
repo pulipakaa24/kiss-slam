@@ -50,7 +50,7 @@ kiss_slam_dump_config
 
 ```
 
-Now, you can modify the parameters and pass the file to the `--config` option when running the `kiss_slam_pipeline`.
+which will generate a `kiss_slam.yaml` file. Now, you can modify the parameters and pass the file to the `--config` option when running the `kiss_slam_pipeline`.
 
 ### Install Python API (developer mode)
 For development purposes:
