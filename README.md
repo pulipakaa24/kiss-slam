@@ -21,15 +21,7 @@ kiss_slam_pipeline --help
 
 This should print the following help message:
 
-```
-Usage: kiss_slam_pipeline [OPTIONS] DATASET
-
-Options:
---config TEXT  Path to configuration file
---visualize    Enable visualization
---help         Show this message and exit.
-
-```
+![help](https://github.com/user-attachments/assets/5a6fe624-2aaf-466f-8a18-51039b794000)
 
 ### Config
 You can generate a default `config.yaml` by typing:
@@ -54,16 +46,15 @@ make editable
 ## Citation
 If you use this library for any academic work, please cite our original paper:
 ```
-PUT CITATION
-
+WAIT FOR IT
 ```
 
 ## Contributing
 
 We envision KISS-SLAM as a comunity-driven project, we love to see how the project is growing thanks to the contributions from the comunity. We would love to see your face in the list below, just open a Pull Request!
 
-<a href="https://github.com/PRBonn/kiss-icp/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=PRBonn/kiss-icp" />
+<a href="https://github.com/PRBonn/kiss-slam/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=PRBonn/kiss-slam" />
 </a>
 
 ## Contact Us
