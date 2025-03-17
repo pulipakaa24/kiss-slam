@@ -39,17 +39,13 @@ set(SuiteSparse_BLAS_integer "int64_t" CACHE STRING "BLAS Integer type")
 set(SUITESPARSE_USE_STRICT ON CACHE BOOL "treat all _USE__ settings as strict")
 set(BUILD_STATIC_LIBS ON CACHE BOOL "static on")
 
-if(USE_SYSTEM_SUITESPARSE)
-  return()
-else()
-  FetchContent_Declare(
-    suitesparse SYSTEM EXCLUDE_FROM_ALL
-    URL https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v7.10.1.tar.gz
-    PATCH_COMMAND patch -p1 < ${CMAKE_CURRENT_LIST_DIR}/suitesparse.patch UPDATE_DISCONNECTED 1)
-  FetchContent_MakeAvailable(suitesparse)
-  if(TARGET SuiteSparse::CHOLMOD)
-    set(SuiteSparse_CHOLMOD_FOUND ON CACHE BOOL "SuiteSparse::CHOLMOD Exists")
-    set(SuiteSparse_FOUND ON CACHE BOOL "SuiteSparse exists if target SuiteSparse::CHOLMOD exists")
-    set(SuiteSparse_NO_CMAKE ON CACHE BOOL "Do not try to find SuiteSparse")
-  endif()
+FetchContent_Declare(
+   suitesparse SYSTEM EXCLUDE_FROM_ALL
+   URL https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v7.10.1.tar.gz
+   PATCH_COMMAND patch -p1 < ${CMAKE_CURRENT_LIST_DIR}/suitesparse.patch UPDATE_DISCONNECTED 1)
+ FetchContent_MakeAvailable(suitesparse)
+ if(TARGET SuiteSparse::CHOLMOD)
+   set(SuiteSparse_CHOLMOD_FOUND ON CACHE BOOL "SuiteSparse::CHOLMOD Exists")
+   set(SuiteSparse_FOUND ON CACHE BOOL "SuiteSparse exists if target SuiteSparse::CHOLMOD exists")
+   set(SuiteSparse_NO_CMAKE ON CACHE BOOL "Do not try to find SuiteSparse")
 endif()
