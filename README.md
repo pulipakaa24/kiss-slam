@@ -65,7 +65,7 @@ make editable
 ## Citation
 If you use this library for any academic work, please cite our original paper:
 ```
-WAIT FOR IT
+TBD
 ```
 
 ## Contributing
