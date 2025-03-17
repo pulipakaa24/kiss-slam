@@ -39,8 +39,7 @@ inline float ProbabilityOccupied(const float logodds) {
 
 namespace occupancy_mapper {
 OccupancyMapper::OccupancyMapper(const float resolution, const float max_range)
-    : resolution_(resolution),
-      max_range_(max_range),
+    : max_range_(max_range),
       map_(resolution),
       accessor_(map_.createAccessor()) {}
 
