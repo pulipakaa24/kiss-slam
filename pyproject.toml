@@ -10,6 +10,7 @@ readme = "README.md"
 authors = [
     { name = "Tiziano Guadagnino", email = "frevo93@gmail.com" },
     { name = "Benedikt Mersch", email = "benedikt.mersch@gmail.com" },
+    { name = "Saurabh Gupta", email = "saurabh.gupta1002@gmail.com" },
 ]
 requires-python = ">=3.8"
 keywords = [
