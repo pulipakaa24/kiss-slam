@@ -35,6 +35,7 @@ function(set_global_target_properties target)
             $<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wextra>
             $<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wconversion>
             $<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wno-sign-conversion>
+            $<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wno-deprecated-declarations>
             # GNU
             $<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fdiagnostics-color=always>
             $<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Werror>
