@@ -72,7 +72,7 @@ If you use this library for any academic work, please cite our original paper:
 ```
 
 ## Acknowledgements
-This project builds on top of [KISS-ICP](https://github.com/PRBonn/kiss-icp), [MapClosures](https://github.com/PRBonn/kiss-icp), and [g2o](https://github.com/RainerKuemmerle/g2o).
+This project builds on top of [KISS-ICP](https://github.com/PRBonn/kiss-icp), [MapClosures](https://github.com/PRBonn/MapClosures), and [g2o](https://github.com/RainerKuemmerle/g2o).
 
 ## Contributing
 
