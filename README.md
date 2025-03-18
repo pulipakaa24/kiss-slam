@@ -17,7 +17,7 @@
 [KISS-SLAM](https://www.ipb.uni-bonn.de/wp-content/papercite-data/pdf/kiss2025iros.pdf) is a simple, robust, and accurate 3D LiDAR SLAM system that **just works**.
 
 
-![motivation](https://github.com/user-attachments/assets/c784ac23-693c-4872-b80c-79d0ba069f6d)
+![motivation](https://github.com/user-attachments/assets/7509b455-7e13-4fad-aed4-2fda7b114370)
 
 </div>
 
