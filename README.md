@@ -54,6 +54,7 @@ For development purposes:
 
 ```
 sudo apt install git python3-pip libeigen3-dev libsuitesparse-dev
+python3 -m pip install --upgrade pip
 git clone https://github.com/PRBonn/kiss-slam.git
 cd kiss-slam
 make editable
