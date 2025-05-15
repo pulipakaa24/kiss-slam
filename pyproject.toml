@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "kiss-slam"
-version = "0.0.1"
+version = "0.0.2"
 description = "KISS-SLAM: A Simple, Robust, and Accurate 3D LiDAR SLAM System With Enhanced Generalization Capabilities"
 readme = "README.md"
 authors = [
