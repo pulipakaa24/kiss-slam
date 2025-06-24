@@ -49,6 +49,10 @@ kiss_slam_dump_config
 
 which will generate a `kiss_slam.yaml` file. Now, you can modify the parameters and pass the file to the `--config` option when running the `kiss_slam_pipeline`.
 
+Suggestion for indoor applications:
+1. Reduce the `odometry.preprocessing.max_range` to 50.0, this will automatically reduce the `voxel_size` to 0.5.
+2. Reduce the `local_mapper.splitting_distance` to a suitable distance based on the scale of the indoor environment.
+
 ### Install Python API (developer mode)
 For development purposes:
 
