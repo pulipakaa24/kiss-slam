@@ -45,7 +45,7 @@ class KissSLAM:
         local_map_config = self.config.local_mapper
         self.local_map_voxel_size = local_map_config.voxel_size
         self.voxel_grid = VoxelMap(self.local_map_voxel_size)
-        self.local_map_graph = LocalMapGraph(self.config.keypose)
+        self.local_map_graph = LocalMapGraph(np.array(self.config.keypose))
         self.local_map_splitting_distance = local_map_config.splitting_distance
         self.optimizer = PoseGraphOptimizer(config.pose_graph_optimizer)
         self.optimizer.add_variable(self.local_map_graph.last_id, self.local_map_graph.last_keypose)

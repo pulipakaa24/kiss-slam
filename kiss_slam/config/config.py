@@ -74,7 +74,7 @@ class KissSLAMConfig(BaseSettings):
     out_dir: str = "slam_output"
     odometry: KissOdometryConfig = KissOdometryConfig()
     local_mapper: LocalMapperConfig = LocalMapperConfig()
-    keypose: np.ndarray = np.eye(4)
+    keypose: list[list[float]] = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
     occupancy_mapper: OccupancyMapperConfig = OccupancyMapperConfig()
     loop_closer: LoopCloserConfig = LoopCloserConfig()
     pose_graph_optimizer: PoseGraphOptimizerConfig = PoseGraphOptimizerConfig()
