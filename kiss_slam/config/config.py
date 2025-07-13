@@ -36,6 +36,7 @@ from kiss_icp.config.parser import KISSConfig
 from map_closures.config.config import MapClosuresConfig
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import numpy as np
 
 
 class KissOdometryConfig(BaseModel):
@@ -73,6 +74,7 @@ class KissSLAMConfig(BaseSettings):
     out_dir: str = "slam_output"
     odometry: KissOdometryConfig = KissOdometryConfig()
     local_mapper: LocalMapperConfig = LocalMapperConfig()
+    keypose: np.ndarray = np.eye(4)
     occupancy_mapper: OccupancyMapperConfig = OccupancyMapperConfig()
     loop_closer: LoopCloserConfig = LoopCloserConfig()
     pose_graph_optimizer: PoseGraphOptimizerConfig = PoseGraphOptimizerConfig()

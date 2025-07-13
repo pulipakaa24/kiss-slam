@@ -46,9 +46,9 @@ class LocalMap:
 
 
 class LocalMapGraph:
-    def __init__(self):
+    def __init__(self, keypose: np.ndarray):
         self.graph = dict()
-        local_map0 = LocalMap(id=0, keypose=np.eye(4))
+        local_map0 = LocalMap(id=0, keypose=keypose)
         local_map0.local_trajectory.clear()
         self.graph[0] = local_map0
 
