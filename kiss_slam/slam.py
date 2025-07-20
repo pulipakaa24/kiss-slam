@@ -56,16 +56,20 @@ class KissSLAM:
         self.optimizer.fix_variable(self.local_map_graph.last_id)
         self.closures = []
 
-        if not self.pcdPath == "":
+        if self.pcdPath:
           if os.path.exists(self.pcdPath):
+            print("path exists")
             try:
               o3dPCD = o3d.io.read_point_cloud(self.pcdPath)
+              print("pcd loaded")
               o3dPCD = o3dPCD.transform(np.linalg.inv(self.config.keypose))
               local_map_initial = voxel_down_sample(np.asarray(o3dPCD.points), self.local_map_voxel_size)
               currPose = np.eye(4)
               self.voxel_grid.integrate_frame(local_map_initial, currPose)
               self.local_map_graph.last_local_map.local_trajectory.append(currPose)
+              print("map loaded to current map")
               self.generate_new_node()
+              print("new vertex generated")
 
             except Exception as e:
               print(f"An error occurred while reading or converting the PCD file: {e}")
