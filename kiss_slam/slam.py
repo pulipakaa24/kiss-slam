@@ -66,7 +66,6 @@ class KissSLAM:
               local_map_initial = voxel_down_sample(np.asarray(o3dPCD.points), self.local_map_voxel_size)
               currPose = np.eye(4)
               self.voxel_grid.integrate_frame(local_map_initial, currPose)
-              self.local_map_graph.last_local_map.local_trajectory.append(currPose)
               print("map loaded to current map")
 
             except Exception as e:
