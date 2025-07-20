@@ -23,12 +23,15 @@
 import numpy as np
 from kiss_icp.kiss_icp import KissICP
 from kiss_icp.voxelization import voxel_down_sample
+import os
 
 from kiss_slam.config import KissSLAMConfig
 from kiss_slam.local_map_graph import LocalMapGraph
 from kiss_slam.loop_closer import LoopCloser
 from kiss_slam.pose_graph_optimizer import PoseGraphOptimizer
 from kiss_slam.voxel_map import VoxelMap
+
+import open3d as o3d
 
 
 def transform_points(pcd, T):
@@ -47,10 +50,25 @@ class KissSLAM:
         self.voxel_grid = VoxelMap(self.local_map_voxel_size)
         self.local_map_graph = LocalMapGraph(np.array(self.config.keypose))
         self.local_map_splitting_distance = local_map_config.splitting_distance
+        self.pcdPath = self.config.pcdPath
         self.optimizer = PoseGraphOptimizer(config.pose_graph_optimizer)
         self.optimizer.add_variable(self.local_map_graph.last_id, self.local_map_graph.last_keypose)
         self.optimizer.fix_variable(self.local_map_graph.last_id)
         self.closures = []
+
+        if not self.pcdPath == "":
+          if os.path.exists(self.pcdPath):
+            try:
+              o3dPCD = o3d.io.read_point_cloud(self.pcdPath)
+              o3dPCD = o3dPCD.transform(np.linalg.inv(self.config.keypose))
+              local_map_initial = voxel_down_sample(np.asarray(o3dPCD.points), self.local_map_voxel_size)
+              currPose = np.eye(4)
+              self.voxel_grid.integrate_frame(local_map_initial, currPose)
+              self.local_map_graph.last_local_map.local_trajectory.append(currPose)
+              self.generate_new_node()
+
+            except Exception as e:
+              print(f"An error occurred while reading or converting the PCD file: {e}")
 
     def get_closures(self):
         return self.closures

@@ -75,6 +75,7 @@ class KissSLAMConfig(BaseSettings):
     odometry: KissOdometryConfig = KissOdometryConfig()
     local_mapper: LocalMapperConfig = LocalMapperConfig()
     keypose: list[list[float]] = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+    pcdPath: str = ""
     occupancy_mapper: OccupancyMapperConfig = OccupancyMapperConfig()
     loop_closer: LoopCloserConfig = LoopCloserConfig()
     pose_graph_optimizer: PoseGraphOptimizerConfig = PoseGraphOptimizerConfig()
