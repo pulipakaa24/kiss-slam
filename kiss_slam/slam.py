@@ -65,6 +65,9 @@ class KissSLAM:
               o3dPCD = o3d.io.read_point_cloud(self.pcdPath)
               print("pcd loaded")
               o3dPCD = o3dPCD.transform(np.linalg.inv(self.config.keypose))
+              num_points = o3dPCD.shape[0]
+              timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
+              self.odometry.register_frame(o3dPCD, timestamps)
               local_map_initial = voxel_down_sample(np.asarray(o3dPCD.points), self.local_map_voxel_size)
               currPose = np.eye(4)
               self.voxel_grid.integrate_frame(local_map_initial, currPose)
