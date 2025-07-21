@@ -55,10 +55,12 @@ class KissSLAM:
         self.optimizer.add_variable(self.local_map_graph.last_id, self.local_map_graph.last_keypose)
         self.optimizer.fix_variable(self.local_map_graph.last_id)
         self.closures = []
+        self.haveInitMap = False
 
         if self.pcdPath:
           if os.path.exists(self.pcdPath):
             print("path exists")
+            self.haveInitMap = True
             try:
               o3dPCD = o3d.io.read_point_cloud(self.pcdPath)
               print("pcd loaded")
@@ -66,7 +68,10 @@ class KissSLAM:
               local_map_initial = voxel_down_sample(np.asarray(o3dPCD.points), self.local_map_voxel_size)
               currPose = np.eye(4)
               self.voxel_grid.integrate_frame(local_map_initial, currPose)
+              # self.local_map_graph.last_local_map.local_trajectory.append(currPose)
               print("map loaded to current map")
+              self.generate_new_node()
+              print("generated new node")
 
             except Exception as e:
               print(f"An error occurred while reading or converting the PCD file: {e}")
@@ -138,7 +143,9 @@ class KissSLAM:
         id_ = 0
         pgo.add_variable(id_, self.local_map_graph[id_].keypose)
         pgo.fix_variable(id_)
-        for node in self.local_map_graph.local_maps():
+        mapsList = self.local_map_graph.local_maps()
+        if self.haveInitMap: next(mapsList)
+        for node in mapsList:
             odometry_factors = [
                 np.linalg.inv(T0) @ T1
                 for T0, T1 in zip(node.local_trajectory[:-1], node.local_trajectory[1:])
