@@ -74,8 +74,6 @@ class KissSLAM:
               self.voxel_grid.integrate_frame(local_map_initial, currPose)
               self.local_map_graph.last_local_map.local_trajectory.append(currPose)
               print("map loaded to current map")
-              self.generate_new_node()
-              print("generated new node")
 
             except Exception as e:
               print(f"An error occurred while reading or converting the PCD file: {e}")
