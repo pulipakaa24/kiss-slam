@@ -82,3 +82,8 @@ class LoopCloser:
         else:
             print(f"KissSLAM| Closure rejected for low overlap.")
         return closure_is_accepted, pose
+    
+  
+# TODO: What I want to do is this: take the previous combined map and store it. 
+# For each map closure calculation, first compute closures with the internal map.
+# If no internal closure exists, run the same process between the map and the combined map.

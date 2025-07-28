@@ -59,22 +59,23 @@ class SlamPipeline(OdometryPipeline):
         self._run_evaluation()
         self._evaluate_closures()
         self._create_output_dir()
-        # self._write_result_poses()
-        # self._write_gt_poses()
-        # self._write_cfg()
-        # self._write_log()
-        # self._write_graph()
-        # self._write_closures()
+        self._write_result_poses()
+        self._write_gt_poses()
+        self._write_cfg()
+        self._write_log()
+        self._write_graph()
+        self._write_closures()
         self._write_local_maps()
         self._global_mapping()
         return self.results
 
     def _run_pipeline(self):
+        self.times[0] = 1
         for idx in trange(self._first, self._last, unit=" frames", dynamic_ncols=True):
             scan, timestamps = self._next(idx)
             start_time = time.perf_counter_ns()
             self.kiss_slam.process_scan(scan, timestamps)
-            self.times[idx - self._first] = time.perf_counter_ns() - start_time
+            self.times[idx + 1 - self._first] = time.perf_counter_ns() - start_time
             self.visualizer.update(self.kiss_slam)
         self.kiss_slam.generate_new_node()
         self.kiss_slam.local_map_graph.erase_last_local_map()
