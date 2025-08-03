@@ -41,15 +41,20 @@ class LoopCloser:
         )
         self.overlap_threshold = config.overlap_threshold
 
-    def compute(self, query_id, points, local_map_graph: LocalMapGraph):
+    def compute(self, query_id, points, local_map_graph: LocalMapGraph, initMap):
         closure = self.detector.get_best_closure(query_id, points)
         is_good = False
         ref_id = -1
         pose_constraint = np.eye(4)
         if closure.number_of_inliers >= self.config.detector.inliers_threshold:
             ref_id = closure.source_id
-            source = local_map_graph[ref_id].pcd
-            target = local_map_graph[query_id].pcd
+            if ref_id < 0:
+                ref_id = 0
+                source = initMap
+                target = local_map_graph[query_id].pcd
+            else:
+              source = local_map_graph[ref_id].pcd
+              target = local_map_graph[query_id].pcd
             print("\nKissSLAM| Closure Detected")
             is_good, pose_constraint = self.validate_closure(source, target, closure.pose)
         return is_good, ref_id, query_id, pose_constraint
