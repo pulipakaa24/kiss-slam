@@ -65,8 +65,11 @@ class KissSLAM:
               print("pcd loaded")
               o3dPCD = o3dPCD.transform(np.linalg.inv(self.config.keypose))
               o3dPCD = np.asarray(o3dPCD.points)
+              o3dPCD = voxel_down_sample(o3dPCD, self.local_map_voxel_size)
               self.haveInitMap = True
               self.initMap = o3dPCD
+              self.initMapO3D = o3d.geometry.PointCloud()
+              self.initMapO3D.points = o3d.utility.Vector3dVector(o3dPCD)
               # num_points = o3dPCD.shape[0]
               # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
               # self.odometry.register_frame(o3dPCD, timestamps)
@@ -99,13 +102,13 @@ class KissSLAM:
 
     def compute_closures(self, query_id, query):
         if query_id == 0 and self.haveInitMap:
-            self.closer.compute(-5, voxel_down_sample(self.initMap, self.local_map_voxel_size), self.local_map_graph, self.initMap)
+            self.closer.compute(-5, self.initMap, self.local_map_graph, self.initMapO3D)
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(query)
         o3d.visualization.draw_geometries([pcd])
             #I want to put together 'query' and self.initMap here and save it back into query
         is_good, source_id, target_id, pose_constraint = self.closer.compute(
-            query_id, query, self.local_map_graph, self.initMap
+            query_id, query, self.local_map_graph, self.initMapO3D
         )
         if is_good:
             self.closures.append((source_id, target_id))
