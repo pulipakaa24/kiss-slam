@@ -60,22 +60,22 @@ class KissSLAM:
         if self.pcdPath:
           if os.path.exists(self.pcdPath):
             print("path exists")
-            self.haveInitMap = True
             try:
               o3dPCD = o3d.io.read_point_cloud(self.pcdPath)
               print("pcd loaded")
               o3dPCD = o3dPCD.transform(np.linalg.inv(self.config.keypose))
               o3dPCD = np.asarray(o3dPCD.points)
-              num_points = o3dPCD.shape[0]
-              timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
-              self.odometry.register_frame(o3dPCD, timestamps)
-              local_map_initial = voxel_down_sample(o3dPCD, self.local_map_voxel_size)
-              currPose = np.eye(4)
-              self.voxel_grid.integrate_frame(local_map_initial, currPose)
-              self.local_map_graph.last_local_map.local_trajectory.append(currPose)
-              print("map loaded to current map")
-              self.generate_new_node()
-              print("generated new node")
+              self.haveInitMap = True
+              # num_points = o3dPCD.shape[0]
+              # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
+              # self.odometry.register_frame(o3dPCD, timestamps)
+              # local_map_initial = voxel_down_sample(o3dPCD, self.local_map_voxel_size)
+              # currPose = np.eye(4)
+              # self.voxel_grid.integrate_frame(local_map_initial, currPose)
+              # self.local_map_graph.last_local_map.local_trajectory.append(currPose)
+              # print("map loaded to current map")
+              # self.generate_new_node()
+              # print("generated new node")
 
             except Exception as e:
               print(f"An error occurred while reading or converting the PCD file: {e}")
@@ -97,6 +97,8 @@ class KissSLAM:
             self.generate_new_node()
 
     def compute_closures(self, query_id, query):
+        if query_id == 0:
+            print("ZERO")
         is_good, source_id, target_id, pose_constraint = self.closer.compute(
             query_id, query, self.local_map_graph
         )
