@@ -66,6 +66,7 @@ class KissSLAM:
               o3dPCD = o3dPCD.transform(np.linalg.inv(self.config.keypose))
               o3dPCD = np.asarray(o3dPCD.points)
               self.haveInitMap = True
+              self.initMap = o3dPCD
               # num_points = o3dPCD.shape[0]
               # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
               # self.odometry.register_frame(o3dPCD, timestamps)
@@ -97,8 +98,10 @@ class KissSLAM:
             self.generate_new_node()
 
     def compute_closures(self, query_id, query):
-        if query_id == 0:
-            print("ZERO")
+        if query_id == 0 and self.haveInitMap:
+            query = np.vstack((query, self.initMap))
+            query = voxel_down_sample(query, self.local_map_voxel_size)
+            #I want to put together 'query' and self.initMap here and save it back into query
         is_good, source_id, target_id, pose_constraint = self.closer.compute(
             query_id, query, self.local_map_graph
         )
