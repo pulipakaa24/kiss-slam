@@ -99,7 +99,7 @@ class KissSLAM:
 
     def compute_closures(self, query_id, query):
         if query_id == 0 and self.haveInitMap:
-            self.closer.compute(-5, voxel_down_sample(self.initMap, self.local_map_voxel_size))
+            self.closer.compute(-5, voxel_down_sample(self.initMap, self.local_map_voxel_size), self.local_map_graph)
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(query)
         o3d.visualization.draw_geometries([pcd])
