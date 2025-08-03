@@ -101,6 +101,9 @@ class KissSLAM:
         if query_id == 0 and self.haveInitMap:
             query = np.vstack((query, self.initMap))
             query = voxel_down_sample(query, self.local_map_voxel_size)
+            pcd = o3d.geometry.PointCloud()
+            pcd.points = o3d.utility.Vector3dVector(query)
+            o3d.visualization.draw_geometries([pcd])
             #I want to put together 'query' and self.initMap here and save it back into query
         is_good, source_id, target_id, pose_constraint = self.closer.compute(
             query_id, query, self.local_map_graph
