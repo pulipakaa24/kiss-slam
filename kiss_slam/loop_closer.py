@@ -53,15 +53,17 @@ class LoopCloser:
                 print("\nKissSLAM| Closure with InitMap Detected")
                 source = initMap
                 target = local_map_graph[query_id].pcd
+                smallToLarge = True
             else:
-              source = local_map_graph[ref_id].pcd
-              target = local_map_graph[query_id].pcd
-              print("\nKissSLAM| Closure Detected")
-            is_good, pose_constraint = self.validate_closure(source, target, closure.pose)
+                source = local_map_graph[ref_id].pcd
+                target = local_map_graph[query_id].pcd
+                print("\nKissSLAM| Closure Detected")
+                smallToLarge = False
+            is_good, pose_constraint = self.validate_closure(source, target, closure.pose, smallToLarge)
         return is_good, ref_id, query_id, pose_constraint
 
     # This is the thing that takes the most time
-    def validate_closure(self, source, target, initial_guess):
+    def validate_closure(self, source, target, initial_guess, smallToLarge = False):
         registration_result = o3d.t.pipelines.registration.icp(
             source,
             target,
@@ -83,7 +85,12 @@ class LoopCloser:
         o3dpcd.points = o3d.utility.Vector3dVector(pcd)
         o3d.visualization.draw_geometries([o3dpcd])
         union = union_map.num_voxels()
-        intersection = num_source_voxels + num_target_voxels - union
+        
+        if smallToLarge:
+            intersection = 2*num_target_voxels - union
+        else:
+            intersection = num_source_voxels + num_target_voxels - union
+
         overlap = intersection / np.min([num_source_voxels, num_target_voxels])
         closure_is_accepted = overlap > self.overlap_threshold
         print(f"KissSLAM| LocalMaps Overlap: {overlap}")
