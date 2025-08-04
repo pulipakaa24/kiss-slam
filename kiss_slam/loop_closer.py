@@ -50,12 +50,13 @@ class LoopCloser:
             ref_id = closure.source_id
             if ref_id < 0:
                 ref_id = 0
+                print("\nKissSLAM| Closure with InitMap Detected")
                 source = initMap
                 target = local_map_graph[query_id].pcd
             else:
               source = local_map_graph[ref_id].pcd
               target = local_map_graph[query_id].pcd
-            print("\nKissSLAM| Closure Detected")
+              print("\nKissSLAM| Closure Detected")
             is_good, pose_constraint = self.validate_closure(source, target, closure.pose)
         return is_good, ref_id, query_id, pose_constraint
 
