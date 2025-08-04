@@ -48,7 +48,7 @@ class KissSLAM:
         local_map_config = self.config.local_mapper
         self.local_map_voxel_size = local_map_config.voxel_size
         self.voxel_grid = VoxelMap(self.local_map_voxel_size)
-        self.init_voxel_grid = VoxelMap(self.local_map_voxel_size)
+        self.init_voxel_grid = VoxelMap(self.local_map_voxel_size * 2)
         self.local_map_graph = LocalMapGraph(np.array(self.config.keypose))
         self.local_map_splitting_distance = local_map_config.splitting_distance
         self.pcdPath = self.config.pcdPath
@@ -68,10 +68,11 @@ class KissSLAM:
               o3dPCD = np.asarray(o3dPCD.points)
               self.haveInitMap = True
               self.initMap = voxel_down_sample(o3dPCD, self.local_map_voxel_size)
-              self.voxel_grid.clear()
+              self.init_voxel_grid.clear()
               self.init_voxel_grid.add_points(self.initMap)
               self.initMapO3D = self.init_voxel_grid.open3d_pcd_with_normals()
               print(self.initMapO3D)
+              print(self.local_map_voxel_size)
               # o3d.visualization.draw_geometries([self.initMapO3D])
               # num_points = o3dPCD.shape[0]
               # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
