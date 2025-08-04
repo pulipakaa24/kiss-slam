@@ -78,6 +78,10 @@ class LoopCloser:
         num_source_voxels = union_map.num_voxels()
         num_target_voxels = len(target_pts)
         union_map.add_points(target_pts)
+        pcd = union_map.point_cloud()
+        o3dpcd = o3d.geometry.PointCloud()
+        o3dpcd.points = o3d.utility.Vector3dVector(pcd)
+        o3d.visualization.draw_geometries([o3dpcd])
         union = union_map.num_voxels()
         intersection = num_source_voxels + num_target_voxels - union
         overlap = intersection / np.min([num_source_voxels, num_target_voxels])
