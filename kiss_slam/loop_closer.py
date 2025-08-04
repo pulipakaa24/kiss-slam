@@ -46,6 +46,9 @@ class LoopCloser:
         is_good = False
         ref_id = -1
         pose_constraint = np.eye(4)
+        print("gurt")
+        print(closure.source_id)
+        print(closure.number_of_inliers)
         if closure.number_of_inliers >= self.config.detector.inliers_threshold:
             ref_id = closure.source_id
             if ref_id < 0:
