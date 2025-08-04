@@ -49,20 +49,21 @@ class LoopCloser:
         print("gurt")
         print(closure.source_id)
         print(closure.number_of_inliers)
-        if closure.number_of_inliers >= self.config.detector.inliers_threshold:
-            ref_id = closure.source_id
-            if ref_id < 0:
-                ref_id = 0
-                print("\nKissSLAM| Closure with InitMap Detected")
-                source = initMap
-                target = local_map_graph[query_id].pcd
-                smallToLarge = True
-            else:
-                source = local_map_graph[ref_id].pcd
-                target = local_map_graph[query_id].pcd
-                print("\nKissSLAM| Closure Detected")
-                smallToLarge = False
-            is_good, pose_constraint = self.validate_closure(source, target, closure.pose, smallToLarge)
+        ref_id = closure.source_id
+        if ref_id < 0 and closure.number_of_inliers >= 1:
+            ref_id = 0
+            print("\nKissSLAM| Closure with InitMap Detected")
+            source = initMap
+            target = local_map_graph[query_id].pcd
+            smallToLarge = True
+        elif closure.number_of_inliers >= self.config.detector.inliers_threshold:
+            source = local_map_graph[ref_id].pcd
+            target = local_map_graph[query_id].pcd
+            print("\nKissSLAM| Closure Detected")
+            smallToLarge = False
+        else:
+          return is_good, ref_id, query_id, pose_constraint
+        is_good, pose_constraint = self.validate_closure(source, target, closure.pose, smallToLarge)
         return is_good, ref_id, query_id, pose_constraint
 
     # This is the thing that takes the most time
