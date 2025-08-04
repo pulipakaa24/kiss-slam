@@ -57,6 +57,8 @@ class KissSLAM:
         self.optimizer.fix_variable(self.local_map_graph.last_id)
         self.closures = []
         self.haveInitMap = False
+        self.initMap = None
+        self.initMapO3D = None
 
         if self.pcdPath:
           if os.path.exists(self.pcdPath):
