@@ -70,6 +70,7 @@ class KissSLAM:
               self.initMap = o3dPCD
               self.initMapO3D = o3d.geometry.PointCloud()
               self.initMapO3D.points = o3d.utility.Vector3dVector(o3dPCD)
+              self.initMapO3D.estimate_normals()
               # num_points = o3dPCD.shape[0]
               # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
               # self.odometry.register_frame(o3dPCD, timestamps)
