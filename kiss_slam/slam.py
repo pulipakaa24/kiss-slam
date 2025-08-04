@@ -68,8 +68,12 @@ class KissSLAM:
               o3dPCD = np.asarray(o3dPCD.points)
               self.haveInitMap = True
               self.initMap = voxel_down_sample(o3dPCD, self.local_map_voxel_size)
-              self.init_voxel_grid.add_points(o3dPCD)
+              self.voxel_grid.clear()
+              self.init_voxel_grid.add_points(self.initMap)
               self.initMapO3D = self.init_voxel_grid.open3d_pcd_with_normals()
+              # pcd = o3d.geometry.PointCloud()
+              # pcd.points = o3d.utility.Vector3dVector(query)
+              o3d.visualization.draw_geometries([self.initMapO3D])
               # num_points = o3dPCD.shape[0]
               # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
               # self.odometry.register_frame(o3dPCD, timestamps)
