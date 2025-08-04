@@ -107,9 +107,9 @@ class KissSLAM:
             self.generate_new_node()
 
     def compute_closures(self, query_id, query):
-        pcd = o3d.geometry.PointCloud()
-        pcd.points = o3d.utility.Vector3dVector(self.init_voxel_grid.point_cloud())
-        o3d.visualization.draw_geometries([pcd])
+        # pcd = o3d.geometry.PointCloud()
+        # pcd.points = o3d.utility.Vector3dVector(self.init_voxel_grid.point_cloud())
+        # o3d.visualization.draw_geometries([pcd])
         if query_id == 0 and self.haveInitMap:
             self.closer.compute(-5, self.initMap, self.local_map_graph, self.initMapO3D)
         # pcd = o3d.geometry.PointCloud()
