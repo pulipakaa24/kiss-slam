@@ -71,6 +71,7 @@ class KissSLAM:
               self.voxel_grid.clear()
               self.init_voxel_grid.add_points(self.initMap)
               self.initMapO3D = self.init_voxel_grid.open3d_pcd_with_normals()
+              print(self.initMapO3D)
               # o3d.visualization.draw_geometries([self.initMapO3D])
               # num_points = o3dPCD.shape[0]
               # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
