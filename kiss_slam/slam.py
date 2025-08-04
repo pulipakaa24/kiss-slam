@@ -73,7 +73,7 @@ class KissSLAM:
               self.initMapO3D = self.init_voxel_grid.open3d_pcd_with_normals()
               # pcd = o3d.geometry.PointCloud()
               # pcd.points = o3d.utility.Vector3dVector(query)
-              o3d.visualization.draw_geometries([self.initMapO3D])
+              # o3d.visualization.draw_geometries([self.initMapO3D])
               # num_points = o3dPCD.shape[0]
               # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
               # self.odometry.register_frame(o3dPCD, timestamps)
@@ -105,6 +105,7 @@ class KissSLAM:
             self.generate_new_node()
 
     def compute_closures(self, query_id, query):
+        o3d.visualization.draw_geometries([self.initMapO3D])
         if query_id == 0 and self.haveInitMap:
             self.closer.compute(-5, self.initMap, self.local_map_graph, self.initMapO3D)
         # pcd = o3d.geometry.PointCloud()
