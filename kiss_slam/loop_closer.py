@@ -30,9 +30,12 @@ from kiss_slam.voxel_map import VoxelMap
 
 
 class LoopCloser:
-    def __init__(self, config: LoopCloserConfig):
+    def __init__(self, config: LoopCloserConfig, ratio:float = 0):
         self.config = config
-        self.detector = MapClosures(config.detector)
+        if ratio != 0:
+            self.detector = MapClosures(config.detector, ratio)
+        else:
+          self.detector = MapClosures(config.detector)
         self.local_map_voxel_size = config.detector.density_map_resolution
         self.icp_threshold = np.sqrt(3) * self.local_map_voxel_size
         self.icp_algorithm = o3d.t.pipelines.registration.TransformationEstimationPointToPlane()
@@ -49,21 +52,20 @@ class LoopCloser:
         print("gurt")
         print(closure.source_id)
         print(closure.number_of_inliers)
-        ref_id = closure.source_id
-        if ref_id < 0 and closure.number_of_inliers >= 1:
-            ref_id = 0
-            print("\nKissSLAM| Closure with InitMap Detected")
-            source = initMap
-            target = local_map_graph[query_id].pcd
-            smallToLarge = True
-        elif closure.number_of_inliers >= self.config.detector.inliers_threshold:
-            source = local_map_graph[ref_id].pcd
-            target = local_map_graph[query_id].pcd
-            print("\nKissSLAM| Closure Detected")
-            smallToLarge = False
-        else:
-          return is_good, ref_id, query_id, pose_constraint
-        is_good, pose_constraint = self.validate_closure(source, target, closure.pose, smallToLarge)
+        if closure.number_of_inliers >= self.config.detector.inliers_threshold:
+            ref_id = closure.source_id
+            if ref_id < 0:
+                ref_id = 0
+                print("\nKissSLAM| Closure with InitMap Detected")
+                source = initMap
+                target = local_map_graph[query_id].pcd
+                smallToLarge = True
+            else:
+                source = local_map_graph[ref_id].pcd
+                target = local_map_graph[query_id].pcd
+                print("\nKissSLAM| Closure Detected")
+                smallToLarge = False
+            is_good, pose_constraint = self.validate_closure(source, target, closure.pose, smallToLarge)
         return is_good, ref_id, query_id, pose_constraint
 
     # This is the thing that takes the most time

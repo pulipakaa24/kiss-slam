@@ -44,7 +44,6 @@ class KissSLAM:
     def __init__(self, config: KissSLAMConfig):
         self.config = config
         self.odometry = KissICP(config.kiss_icp_config())
-        self.closer = LoopCloser(config.loop_closer)
         local_map_config = self.config.local_mapper
         self.local_map_voxel_size = local_map_config.voxel_size
         self.voxel_grid = VoxelMap(self.local_map_voxel_size)
@@ -75,6 +74,15 @@ class KissSLAM:
               self.initMapO3D = self.init_voxel_grid.open3d_pcd_with_normals()
               print(self.initMapO3D)
               print(self.local_map_voxel_size)
+              min_coords = np.min(self.initMap, axis=0) # [min_x, min_y, min_z]
+              max_coords = np.max(self.initMap, axis=0) # [max_x, max_y, max_z]
+
+              # 2. Calculate the extent (dimension) along each axis
+              extents = max_coords - min_coords # [extent_x, extent_y, extent_z]
+
+              # 3. Find the longest dimension
+              longest_dimension = np.max(extents)
+              self.closer = LoopCloser(config.loop_closer, float(longest_dimension) / 100)
               # o3d.visualization.draw_geometries([self.initMapO3D])
               # num_points = o3dPCD.shape[0]
               # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
@@ -89,6 +97,9 @@ class KissSLAM:
 
             except Exception as e:
               print(f"An error occurred while reading or converting the PCD file: {e}")
+
+        else:
+          self.closer = LoopCloser(config.loop_closer)
 
     def get_closures(self):
         return self.closures
