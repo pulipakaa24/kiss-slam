@@ -72,8 +72,6 @@ class KissSLAM:
               self.init_voxel_grid.clear()
               self.init_voxel_grid.add_points(self.initMap)
               self.initMapO3D = self.init_voxel_grid.open3d_pcd_with_normals()
-              print(self.initMapO3D)
-              print(self.local_map_voxel_size)
               min_coords = np.min(self.initMap, axis=0) # [min_x, min_y, min_z]
               max_coords = np.max(self.initMap, axis=0) # [max_x, max_y, max_z]
 
@@ -83,17 +81,7 @@ class KissSLAM:
               # 3. Find the longest dimension
               longest_dimension = np.max(extents)
               self.closer = LoopCloser(config.loop_closer, float(longest_dimension) / 100)
-              # o3d.visualization.draw_geometries([self.initMapO3D])
-              # num_points = o3dPCD.shape[0]
-              # timestamps = np.linspace(0, 1, num=num_points, dtype=np.float32)
-              # self.odometry.register_frame(o3dPCD, timestamps)
-              # local_map_initial = voxel_down_sample(o3dPCD, self.local_map_voxel_size)
-              # currPose = np.eye(4)
-              # self.voxel_grid.integrate_frame(local_map_initial, currPose)
-              # self.local_map_graph.last_local_map.local_trajectory.append(currPose)
-              # print("map loaded to current map")
-              # self.generate_new_node()
-              # print("generated new node")
+              print("InitMap Size estimation complete, passing ratio to mapclosures")
 
             except Exception as e:
               print(f"An error occurred while reading or converting the PCD file: {e}")
@@ -118,15 +106,8 @@ class KissSLAM:
             self.generate_new_node()
 
     def compute_closures(self, query_id, query):
-        # pcd = o3d.geometry.PointCloud()
-        # pcd.points = o3d.utility.Vector3dVector(self.init_voxel_grid.point_cloud())
-        # o3d.visualization.draw_geometries([pcd])
         if query_id == 0 and self.haveInitMap:
             self.closer.compute(-5, self.initMap, self.local_map_graph, self.initMapO3D)
-        # pcd = o3d.geometry.PointCloud()
-        # pcd.points = o3d.utility.Vector3dVector(query)
-        # o3d.visualization.draw_geometries([pcd])
-            #I want to put together 'query' and self.initMap here and save it back into query
         is_good, source_id, target_id, pose_constraint = self.closer.compute(
             query_id, query, self.local_map_graph, self.initMapO3D
         )

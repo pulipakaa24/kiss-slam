@@ -49,7 +49,6 @@ class LoopCloser:
         is_good = False
         ref_id = -1
         pose_constraint = np.eye(4)
-        print("gurt")
         print(closure.source_id)
         print(closure.number_of_inliers)
         if closure.number_of_inliers >= self.config.detector.inliers_threshold:
@@ -86,10 +85,6 @@ class LoopCloser:
         num_source_voxels = union_map.num_voxels()
         num_target_voxels = len(target_pts)
         union_map.add_points(target_pts)
-        pcd = union_map.point_cloud()
-        o3dpcd = o3d.geometry.PointCloud()
-        o3dpcd.points = o3d.utility.Vector3dVector(pcd)
-        o3d.visualization.draw_geometries([o3dpcd])
         union = union_map.num_voxels()
         
         if smallToLarge:
